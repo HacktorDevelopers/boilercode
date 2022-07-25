@@ -4,6 +4,7 @@ class AdminLoginController {
     execute(req, res) {
         try {
             const { email } = req.body;
+            // console.log(req.files['image']);
             res.json({ 'status': true, 'message': 'Login success ' + email });
         }
         catch (error) {
