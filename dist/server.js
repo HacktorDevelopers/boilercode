@@ -4,15 +4,22 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const socket_io_1 = require("socket.io");
 const routes_1 = __importDefault(require("./routes"));
 const expressFormidable = require('express-formidable');
 const formData = require('express-form-data');
+const http = require('http');
 const app = (0, express_1.default)();
+const server = http.Server(app);
+const io = new socket_io_1.Server(server);
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true, }));
 app.use(formData.parse());
+io.on("connection", (socket) => {
+    console.log(`NewConnection: ${socket.id}`);
+});
 /// AppRoutes
 app.use('/', routes_1.default);
-app.listen(3000, () => {
-    console.log(`⚡️[server]: Server is running at https://localhost:3000`);
+server.listen(3000, () => {
+    console.log(`⚡️[server]: Server is running at http://localhost:3000`);
 });
