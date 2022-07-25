@@ -3,7 +3,7 @@
 import express, {Express, Request, Response, Router} from 'express';
 import { Server } from 'socket.io';
 import appRoute from './routes';
-const expressFormidable = require('express-formidable');
+import chatSocket from './routes/socket/chat.socket';
 const formData = require('express-form-data');
 const http = require('http');
 
@@ -15,9 +15,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true,}));
 app.use(formData.parse());
 
-io.on("connection", (socket) => {
-    console.log(`NewConnection: ${socket.id}`)
-});
+chatSocket(io);
 
 
 /// AppRoutes

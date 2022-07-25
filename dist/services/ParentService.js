@@ -12,30 +12,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const ParentService_1 = __importDefault(require("../../../services/ParentService"));
-class AdminLoginController {
-    execute(req, res) {
+const prismaClient_1 = __importDefault(require("../shared/prismaClient"));
+class ParentService {
+    constructor() { }
+    getParentDetailByEmail(email) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const { email } = req.body;
-                const response = yield new ParentService_1.default().getParentDetailByEmail(email);
-                if (response === null) {
-                    res.status(401).json({
-                        "message": "Invalid email or password"
-                    });
-                }
-                else {
-                    // const res = await this.services().parentService().getParentDetailByEmail(email);
-                    res.json({ 'status': true, 'message': 'Login success ' + email, data: response });
-                }
-            }
-            catch (error) {
-                console.log(error);
-                res.status(500).json({
-                    "message": `Error: ${error}`,
-                });
-            }
+            return yield prismaClient_1.default.parent.findFirst({
+                where: { email }
+            });
         });
     }
 }
-exports.default = AdminLoginController;
+exports.default = ParentService;
