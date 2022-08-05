@@ -13,44 +13,35 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const prismaClient_1 = __importDefault(require("../shared/prismaClient"));
-class ParentService {
+class OTPService {
     constructor() { }
-    getParentDetailByEmail(email) {
+    createOTP(data) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield prismaClient_1.default.parent.findFirst({
-                where: { email }
+            return yield prismaClient_1.default.oTP.create({
+                data: data
             });
         });
     }
-    getParentDetailById(id) {
+    getOTPById(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield prismaClient_1.default.parent.findFirst({
+            return yield prismaClient_1.default.oTP.findFirst({
                 where: { id }
             });
         });
     }
-    createParent(parentData) {
+    getOTP(where) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield prismaClient_1.default.parent.create({
-                data: parentData
+            return yield prismaClient_1.default.oTP.findFirst({
+                where
             });
         });
     }
-    updateParent(userId, parentData) {
+    deleteOTP(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield prismaClient_1.default.parent.update({
-                where: { id: userId },
-                data: parentData
-            });
-        });
-    }
-    updateParentPassword(where, parentData) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return yield prismaClient_1.default.parent.update({
-                where,
-                data: parentData
+            return yield prismaClient_1.default.oTP.delete({
+                where: { id }
             });
         });
     }
 }
-exports.default = ParentService;
+exports.default = OTPService;

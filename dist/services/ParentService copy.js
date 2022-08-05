@@ -22,13 +22,6 @@ class ParentService {
             });
         });
     }
-    getParentDetailById(id) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return yield prismaClient_1.default.parent.findFirst({
-                where: { id }
-            });
-        });
-    }
     createParent(parentData) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield prismaClient_1.default.parent.create({
@@ -36,15 +29,7 @@ class ParentService {
             });
         });
     }
-    updateParent(userId, parentData) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return yield prismaClient_1.default.parent.update({
-                where: { id: userId },
-                data: parentData
-            });
-        });
-    }
-    updateParentPassword(where, parentData) {
+    updateParent(where, parentData) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield prismaClient_1.default.parent.update({
                 where,

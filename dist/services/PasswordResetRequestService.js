@@ -13,44 +13,28 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const prismaClient_1 = __importDefault(require("../shared/prismaClient"));
-class ParentService {
+class PasswordResetRequestService {
     constructor() { }
-    getParentDetailByEmail(email) {
+    createPaswordResetRequest(data) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield prismaClient_1.default.parent.findFirst({
-                where: { email }
+            return yield prismaClient_1.default.passwordResetRequest.create({
+                data: data
             });
         });
     }
-    getParentDetailById(id) {
+    getPaswordResetRequest(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield prismaClient_1.default.parent.findFirst({
+            return yield prismaClient_1.default.passwordResetRequest.findFirst({
                 where: { id }
             });
         });
     }
-    createParent(parentData) {
+    deletePaswordResetRequest(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield prismaClient_1.default.parent.create({
-                data: parentData
-            });
-        });
-    }
-    updateParent(userId, parentData) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return yield prismaClient_1.default.parent.update({
-                where: { id: userId },
-                data: parentData
-            });
-        });
-    }
-    updateParentPassword(where, parentData) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return yield prismaClient_1.default.parent.update({
-                where,
-                data: parentData
+            return yield prismaClient_1.default.passwordResetRequest.delete({
+                where: { id }
             });
         });
     }
 }
-exports.default = ParentService;
+exports.default = PasswordResetRequestService;

@@ -13,19 +13,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const BaseService_1 = __importDefault(require("../../../services/BaseService"));
-class AdminLoginController {
+class ParentRegisterController {
     execute(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const { email } = req.body;
-                const response = yield new BaseService_1.default().parentService().getParentDetailByEmail(email);
+                const data = req.body;
+                const response = yield new BaseService_1.default().parentService().createParent(data);
                 if (response === null) {
                     res.status(401).json({
                         "message": "Invalid email or password"
                     });
                 }
                 else {
-                    res.json({ 'status': true, 'message': 'Login success ' + email, data: response });
+                    res.json({ 'status': true, 'message': 'Registration successful', data: response });
                 }
             }
             catch (error) {
@@ -37,4 +37,4 @@ class AdminLoginController {
         });
     }
 }
-exports.default = AdminLoginController;
+exports.default = ParentRegisterController;

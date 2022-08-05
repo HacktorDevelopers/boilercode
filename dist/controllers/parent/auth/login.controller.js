@@ -13,19 +13,34 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const BaseService_1 = __importDefault(require("../../../services/BaseService"));
-class AdminLoginController {
+const jwt_utils_1 = require("../../../shared/jwt.utils");
+const dotenv_1 = __importDefault(require("dotenv"));
+const password_utils_1 = require("../../../shared/password.utils");
+dotenv_1.default.config();
+class ParentLoginController {
     execute(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const { email } = req.body;
-                const response = yield new BaseService_1.default().parentService().getParentDetailByEmail(email);
+                const data = req.body;
+                const response = yield new BaseService_1.default().parentService().getParentDetailByEmail(data.email);
                 if (response === null) {
                     res.status(401).json({
                         "message": "Invalid email or password"
                     });
                 }
                 else {
-                    res.json({ 'status': true, 'message': 'Login success ' + email, data: response });
+                    if (yield (0, password_utils_1.matchPassword)(data.password, response.password)) {
+                        const token = (0, jwt_utils_1.generateToken)({
+                            id: response.id,
+                            email: response.email,
+                        }, "json-web-token-secret", { expiresIn: '1h' });
+                        res.json({ 'status': true, 'message': 'Login successful', data: response, token });
+                    }
+                    else {
+                        res.status(401).json({
+                            "message": "Invalid email or password"
+                        });
+                    }
                 }
             }
             catch (error) {
@@ -37,4 +52,4 @@ class AdminLoginController {
         });
     }
 }
-exports.default = AdminLoginController;
+exports.default = ParentLoginController;

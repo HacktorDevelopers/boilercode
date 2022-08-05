@@ -13,44 +13,50 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const prismaClient_1 = __importDefault(require("../shared/prismaClient"));
-class ParentService {
-    constructor() { }
-    getParentDetailByEmail(email) {
+class ChildService {
+    createChild(data) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield prismaClient_1.default.parent.findFirst({
-                where: { email }
+            return yield prismaClient_1.default.child.create({
+                data: data,
+                include: {
+                    currentLocation: true,
+                }
             });
         });
     }
-    getParentDetailById(id) {
+    updateChild(where, data) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield prismaClient_1.default.parent.findFirst({
-                where: { id }
+            return yield prismaClient_1.default.child.update({
+                where: where,
+                data: data
             });
         });
     }
-    createParent(parentData) {
+    getChildren(where) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield prismaClient_1.default.parent.create({
-                data: parentData
+            return yield prismaClient_1.default.child.findMany({
+                where: where,
             });
         });
     }
-    updateParent(userId, parentData) {
+    getChildrenWithOtherDetail(where) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield prismaClient_1.default.parent.update({
-                where: { id: userId },
-                data: parentData
+            return yield prismaClient_1.default.child.findMany({
+                where: where,
+                include: {
+                    parent: true,
+                    currentLocation: true,
+                    locationLog: true
+                }
             });
         });
     }
-    updateParentPassword(where, parentData) {
+    removeChild(where) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield prismaClient_1.default.parent.update({
-                where,
-                data: parentData
+            return yield prismaClient_1.default.child.deleteMany({
+                where: where,
             });
         });
     }
 }
-exports.default = ParentService;
+exports.default = ChildService;
