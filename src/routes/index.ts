@@ -4,6 +4,10 @@ import parentRoutes from './parent.route';
 
 const appRoute: Router = express.Router();
 
+appRoute.get("/", (req, res) => {
+    res.send("<h1>Welcome To For Family</h1>")
+})
+
 /// admin
 appRoute.use('/admin', adminRoutes);
 /// child

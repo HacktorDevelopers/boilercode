@@ -2,6 +2,7 @@ import ChildService from "./ChildService";
 import OTPService from "./OTPService";
 import ParentService from "./ParentService";
 import PasswordResetRequestService from "./PasswordResetRequestService";
+import ScheduleRepository from "./schedule.repository";
 
 export default class BaseService {
 
@@ -16,5 +17,8 @@ export default class BaseService {
     }
     childService(): ChildService {
         return new ChildService();
+    }
+    scheduleRepo(): ScheduleRepository {
+        return new ScheduleRepository();
     }
 }

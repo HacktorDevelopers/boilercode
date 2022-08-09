@@ -3,6 +3,7 @@ import ParentForgotPasswordController from '../controllers/parent/auth/forgot_pa
 import ParentLoginController from '../controllers/parent/auth/login.controller';
 import ParentRegisterController from '../controllers/parent/auth/register.controller';
 import ParentChildrenController from '../controllers/parent/children/parent_children.controller';
+import ParentChildScheduleController from '../controllers/parent/children/schedule.controller';
 import ParentProfileController from '../controllers/parent/profile/profile.controller';
 import { authenticateUser } from '../middlewares/auth.middleware';
 
@@ -30,6 +31,13 @@ parentRoutes.post('/children', authenticateUser, new ParentChildrenController().
 parentRoutes.delete('/children/:childId', authenticateUser, new ParentChildrenController().removeChild);
 parentRoutes.post('/children/:childId', authenticateUser, new ParentChildrenController().updateChild);
 parentRoutes.get('/children/:childId', authenticateUser, new ParentChildrenController().getChild);
+
+parentRoutes.get('/children/:childId/schedule', authenticateUser, new ParentChildScheduleController().getSchedules);
+parentRoutes.post('/children/:childId/schedule', authenticateUser, new ParentChildScheduleController().createSchedule);
+parentRoutes.put('/children/:childId/schedule', authenticateUser, new ParentChildScheduleController().updateSchedule);
+parentRoutes.put('/children/:childId/schedule/activate', authenticateUser, new ParentChildScheduleController().activateSchedule);
+parentRoutes.put('/children/:childId/schedule/pause', authenticateUser, new ParentChildScheduleController().pauseSchedule);
+parentRoutes.delete('/children/:childId/schedule', authenticateUser, new ParentChildScheduleController().deleteSchedule);
 
 
 export default parentRoutes;

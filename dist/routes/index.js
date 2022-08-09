@@ -7,6 +7,9 @@ const express_1 = __importDefault(require("express"));
 const admin_1 = __importDefault(require("./admin"));
 const parent_route_1 = __importDefault(require("./parent.route"));
 const appRoute = express_1.default.Router();
+appRoute.get("/", (req, res) => {
+    res.send("<h1>Welcome To For Family</h1>");
+});
 /// admin
 appRoute.use('/admin', admin_1.default);
 /// child

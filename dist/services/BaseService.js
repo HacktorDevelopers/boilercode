@@ -7,6 +7,7 @@ const ChildService_1 = __importDefault(require("./ChildService"));
 const OTPService_1 = __importDefault(require("./OTPService"));
 const ParentService_1 = __importDefault(require("./ParentService"));
 const PasswordResetRequestService_1 = __importDefault(require("./PasswordResetRequestService"));
+const schedule_repository_1 = __importDefault(require("./schedule.repository"));
 class BaseService {
     parentService() {
         return new ParentService_1.default();
@@ -19,6 +20,9 @@ class BaseService {
     }
     childService() {
         return new ChildService_1.default();
+    }
+    scheduleRepo() {
+        return new schedule_repository_1.default();
     }
 }
 exports.default = BaseService;
