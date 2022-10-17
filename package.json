@@ -1,5 +1,5 @@
 {
-  "name": "for_family",
+  "name": "p2p_wallet",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -24,12 +24,14 @@
     "@prisma/client": "^4.1.0",
     "@types/bcrypt": "^5.0.0",
     "@types/dotenv": "^8.2.0",
+    "@types/joi": "^17.2.3",
     "@types/jsonwebtoken": "^8.5.8",
     "@types/socket.io": "^3.0.2",
     "bcrypt": "^5.0.1",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "express-form-data": "^2.0.18",
+    "joi": "^17.6.3",
     "jsonwebtoken": "^8.5.1",
     "socket.io": "^4.5.1"
   }

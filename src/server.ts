@@ -2,8 +2,8 @@
 
 import express, {Express, Request, Response, Router} from 'express';
 import { Server } from 'socket.io';
-import appRoute from './routes';
-import chatSocket from './routes/socket/chat.socket';
+import appRouter from './routes/index.routes';
+require("dotenv").config();
 const formData = require('express-form-data');
 const http = require('http');
 
@@ -15,12 +15,16 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true,}));
 app.use(formData.parse());
 
-chatSocket(io);
+// chatSocket(io);
 
+app.get('/', (req: Request, res: Response) => {
+    return res.send("<h1>P2P Wallet App</h1>");
+})
 
 /// AppRoutes
-app.use('/', appRoute)
+app.use("/", appRouter);
 
-server.listen(3000, () => {
-    console.log(`⚡️[server]: Server is running at http://localhost:3000`);
+const port = process.env.PORT || 4000
+server.listen(port, () => {
+    console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
 })
